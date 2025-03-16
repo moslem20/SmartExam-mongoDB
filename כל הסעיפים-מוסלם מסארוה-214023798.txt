@@ -1,0 +1,944 @@
+//2- הקמה
+use smartExam
+
+//הוספת מסמכים לאוסף של מבחנים
+db.Exams.insertMany([
+  {
+    id: "1",
+    Course_id: "C101",
+    Title: "Midterm Exam",
+    Questions: [
+      { id: "Q1", Text: "What is MongoDB?", Type: "Open", Correct_Answer: null },
+      { id: "Q2", Text: "Choose the correct answer:", Type: "Multiple Choice", Options: ["A", "B", "C"], Correct_Answer: "B" }
+    ],
+    Date_Created: new Date("2024-12-01")
+  },
+  {
+    id: "2",
+    Course_id: "C102",
+    Title: "Final Exam",
+    Questions: [
+      { id: "Q3", Text: "Explain indexing in MongoDB.", Type: "Open", Correct_Answer: null },
+      { id: "Q4", Text: "Which query is used to update a document?", Type: "Multiple Choice", Options: ["insertOne", "updateOne", "deleteOne"], Correct_Answer: "updateOne" }
+    ],
+    Date_Created: new Date("2024-12-15")
+  }
+]);
+
+db.Exams.insertOne([
+  {
+    id: "3",
+    Course_id: "C103",
+    Title: "Quiz 1",
+    Questions: [
+      { id: "Q5", Text: "What is the purpose of aggregation in MongoDB?", Type: "Open", Correct_Answer: null },
+      { id: "Q6", Text: "Which method is used to create an index?", Type: "Multiple Choice", Options: ["createIndex", "dropIndex", "ensureIndex"], Correct_Answer: "createIndex" }
+    ],
+    Date_Created: new Date("2025-01-01")
+  }]);
+  db.Exams.insertOne([
+
+  {
+    id: "4",
+    Course_id: "C101",
+    Title: "Final Exam",
+    Questions: [
+      { id: "Q7", Text: "Explain the difference between Embedded and Referenced relationships.", Type: "Open", Correct_Answer: null },
+      { id: "Q8", Text: "What is the default port of MongoDB?", Type: "Multiple Choice", Options: ["27017", "28015", "8080"], Correct_Answer: "27017" }
+    ],
+    Date_Created: new Date("2025-01-03")
+  }
+]);
+db.Exams.insertMany([
+  {
+    id: "5",
+    Course_id: "C102",
+    Title: "Midterm Exam",
+    Questions: [
+      { id: "Q9", Text: "What is a schema in MongoDB?", Type: "Open", Correct_Answer: null },
+      { id: "Q10", Text: "Which command is used to import data into MongoDB?", Type: "Multiple Choice", Options: ["mongoimport", "mongoexport", "mongodump"], Correct_Answer: "mongoimport" }
+    ],
+    Date_Created: new Date("2025-01-05")
+  },
+  {
+    id: "6",
+    Course_id: "C104",
+    Title: "Intro to Programming Final",
+    Questions: [
+      { id: "Q11", Text: "Write a function to calculate the factorial of a number.", Type: "Open", Correct_Answer: null },
+      { id: "Q12", Text: "What is the output of '5 + '5' in JavaScript?", Type: "Multiple Choice", Options: ["10", "55", "Error"], Correct_Answer: "55" }
+    ],
+    Date_Created: new Date("2025-01-05")
+  }
+]);
+
+
+//הוספת מסמכים לאוסף של שאלות
+
+db.Questions.insertMany([
+  {
+    id: "Q1",
+    Text: "What is MongoDB?",
+    Type: "Open",
+    Options: null,
+    Correct_Answer: null
+  },
+  {
+    id: "Q2",
+    Text: "Choose the correct answer:",
+    Type: "Multiple Choice",
+    Options: ["A", "B", "C"],
+    Correct_Answer: "B"
+  }
+]);
+
+db.Questions.insertOne([
+  {
+    id: "Q5",
+    Text: "What is the purpose of aggregation in MongoDB?",
+    Type: "Open",
+    Options: null,
+    Correct_Answer: null
+  }]);
+  db.Questions.insertOne([
+  {
+    id: "Q6",
+    Text: "Which method is used to create an index?",
+    Type: "Multiple Choice",
+    Options: ["createIndex", "dropIndex", "ensureIndex"],
+    Correct_Answer: "createIndex"
+  }]);
+  db.Questions.insertOne([
+  {
+    id: "Q7",
+    Text: "Explain the difference between Embedded and Referenced relationships.",
+    Type: "Open",
+    Options: null,
+    Correct_Answer: null
+  }]);
+  db.Questions.insertOne([
+  {
+    id: "Q8",
+    Text: "What is the default port of MongoDB?",
+    Type: "Multiple Choice",
+    Options: ["27017", "28015", "8080"],
+    Correct_Answer: "27017"
+  }
+]);
+db.Questions.insertMany([
+  {
+    id: "Q9",
+    Text: "What is a schema in MongoDB?",
+    Type: "Open",
+    Options: null,
+    Correct_Answer: null
+  },
+  {
+    id: "Q10",
+    Text: "Which command is used to import data into MongoDB?",
+    Type: "Multiple Choice",
+    Options: ["mongoimport", "mongoexport", "mongodump"],
+    Correct_Answer: "mongoimport"
+  },
+  {
+    id: "Q11",
+    Text: "Write a function to calculate the factorial of a number.",
+    Type: "Open",
+    Options: null,
+    Correct_Answer: null
+  },
+  {
+    id: "Q12",
+    Text: "What is the output of '5 + '5' in JavaScript?",
+    Type: "Multiple Choice",
+    Options: ["10", "55", "Error"],
+    Correct_Answer: "55"
+  }
+]);
+
+
+//הוספת מסמכים לאוסף של תשובות
+db.Answers.insertOne({
+  id: "A1",
+  Exam_id: "1",
+  Student_id: "U2",
+  Answers: [
+    { Question_id: "Q1", Answer: "MongoDB is a NoSQL database" },
+    { Question_id: "Q2", Answer: "B" }
+  ],
+  Submitted_id: new Date("2024-12-16"),
+  Graded: true,
+  Grade: 90,
+  Feedback: [
+    { Question_id: "Q1", Comment: "Good explanation" },
+    { Question_id: "Q2", Comment: "Correct answer" }
+  ]
+});
+
+db.Answers.insertMany([
+  {
+    id: "A2",
+    Exam_id: "3",
+    Student_id: "U3",
+    Answers: [
+      { Question_id: "Q5", Answer: "Aggregation is used for data analysis." },
+      { Question_id: "Q6", Answer: "createIndex" }
+    ],
+    Submitted_id: new Date("2025-01-02"),
+    Graded: true,
+    Grade: 85,
+    Feedback: [
+      { Question_id: "Q5", Comment: "Detailed explanation required." },
+      { Question_id: "Q6", Comment: "Correct answer!" }
+    ]
+  },
+  {
+    id: "A3",
+    Exam_id: "4",
+    Student_id: "U5",
+    Answers: [
+      { Question_id: "Q7", Answer: "Embedded is for nested data; Referenced is for linked documents." },
+      { Question_id: "Q8", Answer: "27017" }
+    ],
+    Submitted_id: new Date("2025-01-04"),
+    Graded: true,
+    Grade: 95,
+    Feedback: [
+      { Question_id: "Q7", Comment: "Great explanation." },
+      { Question_id: "Q8", Comment: "Correct!" }
+    ]
+  }
+]);
+db.Answers.insertMany([
+  {
+    id: "A4",
+    Exam_id: "5",
+    Student_id: "U6",
+    Answers: [
+      { Question_id: "Q9", Answer: "A schema defines the structure of data." },
+      { Question_id: "Q10", Answer: "mongoimport" }
+    ],
+    Submitted_id: new Date("2025-01-05"),
+    Graded: true,
+    Grade: 90,
+    Feedback: [
+      { Question_id: "Q9", Comment: "Good explanation." },
+      { Question_id: "Q10", Comment: "Correct answer." }
+    ]
+  },
+  {
+    id: "A5",
+    Exam_id: "6",
+    Student_id: "U8",
+    Answers: [
+      { Question_id: "Q11", Answer: "function factorial(n) { return n <= 1 ? 1 : n * factorial(n - 1); }" },
+      { Question_id: "Q12", Answer: "55" }
+    ],
+    Submitted_id: new Date("2025-01-05"),
+    Graded: true,
+    Grade: 98,
+    Feedback: [
+      { Question_id: "Q11", Comment: "Excellent implementation." },
+      { Question_id: "Q12", Comment: "Correct!" }
+    ]
+  }
+]);
+
+
+//הוספת מסמכים לאוסף של משתמשים
+
+db.Users.insertMany([
+  {
+    id: "U1",
+    Name: "John Doe",
+    Email: "johndoe@example.com",
+    Role: "teacher",
+    Courses: ["C101"]
+  },
+  {
+    id: "U2",
+    Name: "Jane Smith",
+    Email: "janesmith@example.com",
+    Role: "student",
+    Courses: ["C101", "C102"]
+  }
+]);
+
+db.Users.insertMany([
+  {
+    id: "U3",
+    Name: "Alice Brown",
+    Email: "alicebrown@example.com",
+    Role: "student",
+    Courses: ["C103"]
+  },
+  {
+    id: "U5",
+    Name: "Emily Davis",
+    Email: "emilydavis@example.com",
+    Role: "student",
+    Courses: ["C101", "C103"]
+  }
+]);
+
+db.Users.insertOne([
+	{
+    id: "U4",
+    Name: "Bob Williams",
+    Email: "bobwilliams@example.com",
+    Role: "teacher",
+    Courses: ["C103"]
+  }
+]);
+db.Users.insertMany([
+  {
+    id: "U6",
+    Name: "Charles Martin",
+    Email: "charlesmartin@example.com",
+    Role: "student",
+    Courses: ["C102"]
+  },
+  {
+    id: "U7",
+    Name: "Diana Clark",
+    Email: "dianaclark@example.com",
+    Role: "teacher",
+    Courses: ["C102", "C104"]
+  },
+  {
+    id: "U8",
+    Name: "Fred Johnson",
+    Email: "fredjohnson@example.com",
+    Role: "student",
+    Courses: ["C104"]
+  }
+]);
+
+
+// הוספת מסמכים לאוסף של קורסים
+
+db.Courses.insertMany([
+  {
+    id: "C101",
+    Name: "Introduction to Databases",
+    Teacher_id: "U1",
+    Students: ["U2"]
+  },
+  {
+    id: "C102",
+    Name: "Advanced MongoDB",
+    Teacher_id: "U1",
+    Students: ["U2"]
+  }
+]);
+
+db.Courses.insertOne([
+  {
+    id: "C103",
+    Name: "Database Design",
+    Teacher_id: "U4",
+    Students: ["U3", "U5"]
+  }
+]);
+
+db.Courses.insertMany([
+  {
+    id: "C102",
+    Name: "Advanced Databases",
+    Teacher_id: "U7",
+    Students: ["U6"]
+  },
+  {
+    id: "C104",
+    Name: "Intro to Programming",
+    Teacher_id: "U7",
+    Students: ["U8"]
+  }
+]);
+
+//-----------------------------------------------------------------------------------------------------------------
+
+//4- חיפוש ושליפת נתונים
+
+show collections
+
+//דוגמאות שליפה לאוסף המבחנים
+
+db.Exams.find()
+
+// להחזיר את מזהה המבחן והכותרת
+db.Exams.find({ Course_id: "C101" }, { id: 1, Title: 1, _id: 0 })
+
+//מבחנים שיש להם שאלות מסוג "Multiple Choice" (דוגמה ל Referenced)
+db.Exams.find({ "Questions.Type": "Multiple Choice" });
+
+// שלוש מבחנים ראשונים בסדר עולה לפי תאריך יצירה שלהן
+db.Exams.find().sort({ Date_Created: 1 }).limit(3).toArray();
+
+//C101 ספירת כל המבחנים בקורס
+db.Exams.find({ Course_id: 'C101' }).count();
+
+//מיון מבחנים לפי מספר השאלות בסדר יורד
+db.Exams.find().sort({ "Questions.length": -1 }).toArray();
+
+// שליפה לאוסף שאלות
+
+db.Questions.find()
+
+//
+db.Questions.find().skip(5).limit(5);
+
+//להחזיר כל השאלות האמריקאיות
+db.Questions.find({Options:{$exists:true}})
+
+//להחזיר את הטקסט של כל השאלות הפתוחות
+db.Questions.find({Options:{$exists:true}},{Text:true})
+
+
+//דוגמאות שליפה לאוסף תשובות
+
+db.Answers.find()
+
+//צויונים גבוהים מ 90
+db.Answers.find({ Grade: { $gt: 90 } });
+
+//תשובות שהכילו יותר משתי שאלות (דוגמה ל Referenced)
+db.Answers.find({ "Answers.2": { $exists: true } });
+
+//כל התשובות שיש בהן פידבק עם ההערה Correct! (דוגמה ל Embedded)
+db.Answers.find({ "Feedback.Comment": "Correct!" });
+
+//תשובות שהוגשו בתאריך 2025-01-05
+db.Answers.find({ Submitted_id: { $gte: ISODate('2025-01-05T00:00:00.000Z') } });
+
+//תשובה עם הציון הגבוה ביותר
+db.Answers.find().sort({ Grade: -1 }).limit(1);
+
+//להחזיר כל הציונים הנמוכים מ 90 
+db.Answers.find({Grade:{$lt:90}})
+
+//שימוש בקתיבת קוד לחישוב ממוצע
+let totalGrade = 0;
+db.Answer.find({ Exam_id: "5", Graded: true }).toArray().forEach(answer => {
+  totalGrade += answer.Grade;
+});
+let averageGrade = totalGrade / db.Answer.find({ Exam_id: "5", Graded: true }).length;
+print(`Average Grade for Exam 5: ${averageGrade}`);
+
+
+//דוגמאות שליפה למשתמשים
+
+db.Users.find()
+
+//להחזיר כל הסטודנטים שבקורס מסוים 
+db.Users.find({$and:[{Role:'student'},{Courses:'C101'}]})
+
+//להחזיר את הקורסים של מורה מסיום
+db.Users.find({Role:'teacher'},{Courses:true , _id:false})
+
+
+
+
+//דוגמאות שליפה לקורסים
+
+db.Courses.find()
+
+//לחזיר הקורסים שיש בהן סטודנט אחד
+db.Courses.find({ 'Students': { $size: 1 } });
+
+//לחזיר הסטודנטים של מרצה
+db.Courses.find({ Teacher_id: "U1" },{ Name: 1, Students: 1, _id: 0 }).toArray();
+
+//ספירת קורסים למורה מסוים
+db.Courses.find({ Teacher_id: "U7" }).count();
+
+//שימוש ב-forEach
+db.Courses.find({}).forEach(course => {print(`Course Name: ${course.Name}, Number of Students: ${course.Students.length}`);});
+
+//גישה למידע Embedded
+db.Courses.find({"Students": "U10" }, { id: 1, Name: 1, "Students": { $elemMatch: { $eq: "U10" } }, _id: 0 } ).toArray();
+
+//בדיקת קורסים עם מזהה כפול בנוסף למיון לפי שם מרצה
+db.Courses.aggregate([{$group: { _id: "$id", count: { $sum: 1 } } },{ $match: { count: { $gt: 1 } } }]).toArray();
+
+
+
+
+//------------------------------------------------------------------------------------------------------------
+
+//5- עדכונים ומחיקות
+
+//שימוש ב אופירטורים $set, $addToSet, $inc, $pop, $push, $pull
+
+// $set: עדכון שדה קיים או יצירת שדה חדש
+db.Exams.updateOne({ Title: "Midterm Exam" }, { $set: { passGrade: 60 } });
+
+// $addToSet: הוספת ערך למערך, רק אם הוא לא קיים
+db.Questions.updateOne({id: "Q6" }, { $addToSet: { Options: "addIndex" } });
+
+// $inc: הגדלה או הקטנה של ערך מספרי
+db.Answers.updateOne({ id: "A1"}, { $inc: { Grade: 5 } });
+
+// $pop: הסרת האלמנט הראשון או האחרון ממערך
+db.Answers.updateOne({ id: "A2" }, { $pop: { Feedback: -1 } }); 
+
+// $push: הוספת אלמנט למערך
+db.Users.updateOne({ id: "U1" }, { $push: { Courses: "C102" } });
+
+// $pull: הסרת אלמנט מסוים ממערך
+db.Users.updateOne({  id: "U1" }, { $pull: { Courses: "C102" } });
+
+//דוגמה ל updateMany
+//הוספת קורס לכל משתמש שהוא סטודנט
+db.Users.updateMany({ Role: "student" },{ $set: { Courses: "new course" } } );
+
+// שכפול של אוסף שאלות
+
+db.Answers.find().forEach( function(docs){db.newAnswers.insertOne(docs);} ) 
+
+//דוגמה לשכפול מלא דרך קוד
+
+function duplicateFullCollection(sourceCollection, targetCollection, db) {
+  db.collection(sourceCollection).aggregate([
+    { $match: {} },
+    { $out: targetCollection } 
+  ]).toArray((err, result) => {
+    if (err) {
+      console.error(`Error duplicating collection: ${err}`);
+    } else {
+      console.log(`Collection '${sourceCollection}' duplicated to '${targetCollection}'`);
+    }
+  });
+}
+
+
+//דוגמה לשכפול חלקי דרך קוד
+
+function duplicatePartialCollection(sourceCollection, targetCollection, criteria, db) {
+  db.collection(sourceCollection).aggregate([
+    { $match: criteria },
+    { $out: targetCollection }
+  ]).toArray((err, result) => {
+    if (err) {
+      console.error(`Error duplicating collection: ${err}`);
+    } else {
+      console.log(`Partial data from '${sourceCollection}' duplicated to '${targetCollection}'`);
+    }
+  });
+}
+
+
+
+
+
+
+ 
+//פקודות remove, rename, drop
+
+db.Questions.remove({ Type: "Open"});
+
+db.Courses.renameCollection("collegeCourses");
+
+db.newAnswers.drop();
+
+
+ 
+//-----------------------------------------------------------------------------------------------
+
+//6- הצגת תוצאות מקובצות בעזרת aggregate
+
+
+//מציאת סטודנטים עם שמות הקורסים
+db.Users.aggregate([
+  { $match: { Role: "student" } },
+  { $unwind: "$Courses" }, 
+  { 
+    $lookup: { 
+      from: "Courses", 
+      localField: "Courses", 
+      foreignField: "id", 
+      as: "CourseDetails" 
+    } 
+  },
+  { $unwind: "$CourseDetails" },
+  { 
+    $project: { 
+      _id: 0, 
+      StudentName: "$Name", 
+      CourseName: "$CourseDetails.Name" 
+    } 
+  }
+]);
+
+
+
+//חישוב כמות השאלות במבחנים וממוצע
+db.Exams.aggregate([
+  { $unwind: "$Questions" },
+  { 
+    $group: { 
+      _id: "$Course_id", 
+      TotalQuestions: { $sum: 1 }, 
+      ExamCount: { $sum: 1 } 
+    } 
+  },
+  { 
+    $lookup: { 
+      from: "Courses", 
+      localField: "_id", 
+      foreignField: "id", 
+      as: "CourseDetails" 
+    } 
+  },
+  { $unwind: "$CourseDetails" },
+  { 
+    $project: { 
+      CourseName: "$CourseDetails.Name", 
+      TotalQuestions: 1, 
+      AvgQuestionsPerExam: { $divide: ["$TotalQuestions", "$ExamCount"] } 
+    } 
+  }
+]);
+
+
+//רשימת מורים עם כמות הקורסים
+db.Courses.aggregate([
+  { 
+    $group: { 
+      _id: "$Teacher_id", 
+      CourseCount: { $sum: 1 } 
+    } 
+  },
+  { 
+    $lookup: { 
+      from: "Users", 
+      localField: "_id", 
+      foreignField: "id", 
+      as: "TeacherDetails" 
+    } 
+  },
+  { $unwind: "$TeacherDetails" },
+  { 
+    $project: { 
+      _id: 0, 
+      TeacherName: "$TeacherDetails.Name", 
+      CourseCount: 1 
+    } 
+  },
+  { $sort: { CourseCount: -1 } } // מיון  בסדר יורד
+]);
+
+
+
+//צבירת כמות הסטודנטים בכל קורס וסידור לפי מספר הסטודנטים היורד
+db.Courses.aggregate([
+  { 
+    $project: { 
+      _id: 0, 
+      CourseName: "$Name", 
+      StudentCount: { $size: "$Students" } // חישוב כמות הסטודנטים
+    } 
+  },
+  { $sort: { StudentCount: -1 } }, // מיון לפי מספר הסטודנטים בסדר יורד
+  { $group: { 
+      _id: null, 
+      Courses: { $push: { CourseName: "$CourseName", StudentCount: "$StudentCount" } }, 
+      TotalStudents: { $sum: "$StudentCount" } 
+    } 
+  },
+  { $project: { _id: 0, Courses: 1, TotalStudents: 1 } } // הצגת הקורסים וסך כל הסטודנטים
+]);
+
+
+//פילוח כמות המבחנים לפי קורס וסידור לפי כמות המבחנים בסדר עולה
+db.Exams.aggregate([
+  { 
+    $group: { 
+      _id: "$Course_id", 
+      ExamCount: { $sum: 1 } 
+    } 
+  },
+  { 
+    $lookup: { 
+      from: "Courses", 
+      localField: "_id", 
+      foreignField: "id", 
+      as: "CourseDetails" 
+    } 
+  },
+  { $unwind: "$CourseDetails" },
+  { 
+    $project: { 
+      _id: 0, 
+      CourseName: "$CourseDetails.Name", 
+      ExamCount: 1 
+    } 
+  },
+  { $sort: { ExamCount: 1 } } // מיון לפי כמות המבחנים בסדר עולה
+]);
+
+
+//חישוב ממוצע שאלות למבחן לכל קורס והצגה של תוצאות מקובצות
+db.Exams.aggregate([
+  { $unwind: "$Questions" }, // פיצול השאלות לכל מבחן
+  { 
+    $group: { 
+      _id: "$Course_id", 
+      TotalQuestions: { $sum: 1 }, 
+      ExamCount: { $sum: 1 } 
+    } 
+  },
+  { 
+    $lookup: { 
+      from: "Courses", 
+      localField: "_id", 
+      foreignField: "id", 
+      as: "CourseDetails" 
+    } 
+  },
+  { $unwind: "$CourseDetails" },
+  { 
+    $project: { 
+      CourseName: "$CourseDetails.Name", 
+      TotalQuestions: 1, 
+      AvgQuestionsPerExam: { $divide: ["$TotalQuestions", "$ExamCount"] } 
+    } 
+  },
+  { $sort: { AvgQuestionsPerExam: -1 } } // מיון לפי ממוצע שאלות למבחן בסדר יורד
+]);
+
+//קבלת רשימת מורים עם פרטי הקורסים שהם מלמדים
+db.Courses.aggregate([
+  { 
+    $group: { 
+      _id: "$Teacher_id", 
+      Courses: { $push: "$Name" }, 
+      CourseCount: { $sum: 1 } 
+    } 
+  },
+  { 
+    $lookup: { 
+      from: "Users", 
+      localField: "_id", 
+      foreignField: "id", 
+      as: "TeacherDetails" 
+    } 
+  },
+  { $unwind: "$TeacherDetails" },
+  { 
+    $project: { 
+      _id: 0, 
+      TeacherName: "$TeacherDetails.Name", 
+      Courses: 1, 
+      CourseCount: 1 
+    } 
+  },
+  { $sort: { CourseCount: -1 } } // מיון לפי מספר הקורסים בסדר יורד
+]);
+
+
+//חישוב ומיון סטודנטים עם כמות הקורסים שהם משתתפים בהם
+db.Users.aggregate([
+  { $match: { Role: "student" } }, // סינון לסטודנטים בלבד
+  { 
+    $project: { 
+      _id: 0, 
+      StudentName: "$Name", 
+      CourseCount: { $size: "$Courses" } 
+    } 
+  },
+  { $sort: { CourseCount: -1 } } // מיון לפי כמות הקורסים בסדר יורד
+]);
+
+
+//מחשב את מספר השאלות הכולל לקורס
+//JavaScript
+function getTotalQuestionsPerCourse(db) {
+  const result = db.Exams.aggregate([
+    {
+      $unwind: "$Questions" // Flatten the Questions array
+    },
+    {
+      $group: {
+        _id: "$Course_id",
+        TotalQuestions: { $sum: 1 }
+      }
+    },
+    {
+      $lookup: {
+        from: "Courses", 
+        localField: "_id",
+        foreignField: "id",
+        as: "CourseDetails"
+      }
+    },
+    {
+      $unwind: "$CourseDetails" 
+    },
+    {
+      $project: {
+        _id: 0,
+        CourseName: "$CourseDetails.Name", 
+        TotalQuestions: 1
+      }
+    },
+    {
+      $sort: { TotalQuestions: -1 }
+    }
+  ]);
+
+  
+  return result.toArray();
+}
+
+// Connect to the database and execute the function
+const db = connect("mongodb://localhost:27017/smartExam");
+const results = getTotalQuestionsPerCourse(db);
+
+print("Total Questions Per Course:");
+results.forEach(course => {
+  print(`Course: ${course.CourseName}, Total Questions: ${course.TotalQuestions}`);
+});
+
+
+
+
+
+
+
+//------------------------------------------------------------------
+
+
+//7- הצגת תוצאות ממופות ומצומצמות בעזרת mapReduce
+
+//לחשב את מספר השאלות הכולל בכל קורס ולמפות את התוצאות
+const mapFunction = function () {
+  emit(this.Course_id, this.Questions.length);
+};
+const reduceFunction = function (key, values) {
+  return Array.sum(values); 
+};
+
+
+db.Exams.mapReduce(
+  mapFunction,  // פונקציית המיפוי
+  reduceFunction, // פונקציית הצמצום
+  {
+    out: { inline: 1 },
+    query: {}
+  }
+);
+
+//חישוב מספר המבחנים לכל קורס
+const mapFunction = function () {
+  emit(this.Course_id, 1);
+};
+const reduceFunction = function (key, values) {
+  return Array.sum(values);
+};
+
+db.Exams.mapReduce(
+  mapFunction,
+  reduceFunction,
+  {
+    out: { inline: 1 } 
+  }
+);
+
+//מציאת המבחן עם מספר השאלות הרב ביותר בכל קורס
+const mapFunction = function () {
+  emit(this.Course_id, { examId: this.id, questionsCount: this.Questions.length });
+};
+const reduceFunction = function (key, values) {
+  return values.reduce((max, current) => {
+    return current.questionsCount > max.questionsCount ? current : max;
+  });
+};
+
+db.Exams.mapReduce(
+  mapFunction,
+  reduceFunction,
+  {
+    out: { inline: 1 } // הצגת תוצאות
+  }
+);
+
+//חישוב מספר השאלות מכל סוג בכל קורס
+const mapFunction = function () {
+  if (this.Questions && Array.isArray(this.Questions)) { // בדיקה אם Questions קיים והוא מערך
+    this.Questions.forEach(q => {
+      emit({ courseId: this.Course_id, questionType: q.Type }, 1);
+    });
+  }
+};
+
+const reduceFunction = function (key, values) {
+  return Array.sum(values);
+};
+
+db.Exams.mapReduce(
+  mapFunction,
+  reduceFunction,
+  {
+    query: { Date_Created: { $gte: ISODate('2025-01-01T00:00:00Z') } },
+    out: { inline: 1 }
+  }
+);
+
+
+//חישוב סך כל השאלות וממוצע השאלות למבחן בכל קורס
+const mapFunction = function () {
+  if (this.Questions && Array.isArray(this.Questions)) {
+    emit(this.Course_id, { examCount: 1, totalQuestions: this.Questions.length });
+  }
+};
+
+const reduceFunction = function (key, values) {
+  return values.reduce((acc, curr) => {
+    return {
+      examCount: acc.examCount + curr.examCount,
+      totalQuestions: acc.totalQuestions + curr.totalQuestions
+    };
+  }, { examCount: 0, totalQuestions: 0 });
+};
+
+const finalizeFunction = function (key, reducedValue) {
+  reducedValue.avgQuestions = reducedValue.totalQuestions / reducedValue.examCount;
+  return reducedValue;
+};
+
+db.Exams.mapReduce(
+  mapFunction,
+  reduceFunction,
+  {
+    query: { Course_id: { $exists: true } },
+    out: { inline: 1 },
+    finalize: finalizeFunction
+  }
+);
+
+//חישוב מספר השאלות מסוג שאלות פתוחות בלבד לכל קורס
+const mapFunction = function () {
+  if (this.Questions && Array.isArray(this.Questions)) {
+    const openQuestionsCount = this.Questions.filter(q => q.Type === 'Open').length;
+    emit(this.Course_id, openQuestionsCount);
+  }
+};
+
+const reduceFunction = function (key, values) {
+  return Array.sum(values);
+};
+
+db.Exams.mapReduce(
+  mapFunction,
+  reduceFunction,
+  {
+    query: { "Questions.Type": "Open" },
+    out: { inline: 1 }
+  }
+);
+
+
+
+
+
